@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>Button Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+        background-color: #fff8f0;
+    }
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    button {
+        padding: 15px 30px;
+        font-size: 18px;
+        margin: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s ease, font-size 0.2s ease;
+    }
+    #yesBtn {
+        background-color: #ffb6c1;
+    }
+    #noBtn {
+        background-color: #87cefa;
+    }
+    img {
+        display: block;
+        margin: 20px auto;
+        max-width: 300px;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+
+<h1 id="message">你要一直爱我吗？</h1>
+<button id="yesBtn">和好</button>
+<button id="noBtn">不要</button>
+
+<div id="photoContainer"></div>
+
+<script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    const photoContainer = document.getElementById("photoContainer");
+
+    const phrases = [
+        "真的?",
+        "对不起，我知道错了",
+        "零花钱都给你",
+        "能不能给个台阶嘛",
+        "原谅我吗，对不起"
+    ];
+
+    const photos = [
+        "photos/photo1.png",
+        "photos/photo2.png",
+        "photos/photo3.png",
+        "photos/photo4.png",
+        "photos/photo5.png"
+    ];
+
+    let noClickCount = 0;
+    let noBtnSize = 1;
+    let yesBtnSize = 1;
+
+    noBtn.addEventListener("click", () => {
+        if (noClickCount < phrases.length) {
+            message.textContent = phrases[noClickCount];
+            photoContainer.innerHTML = `<img src="${photos[noClickCount]}" alt="photo${noClickCount + 1}">`;
+        } else {
+            message.textContent = phrases[phrases.length - 1];
+        }
+        noClickCount++;
+
+        // shrink "不要"
+        noBtnSize *= 0.85;
+        noBtn.style.transform = `scale(${noBtnSize})`;
+
+        // grow "和好"
+        yesBtnSize *= 1.15;
+        yesBtn.style.transform = `scale(${yesBtnSize})`;
+    });
+
+    yesBtn.addEventListener("click", () => {
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+        message.textContent = "!!!喜欢你!! (>.<)❤️";
+        photoContainer.innerHTML = `<img src="photos/xihuan.png" alt="xihuan">`;
+    });
+</script>
+
+</body>
+</html>
